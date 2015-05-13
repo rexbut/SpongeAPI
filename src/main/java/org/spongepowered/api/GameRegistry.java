@@ -30,7 +30,10 @@ import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.entity.ai.task.AITaskType;
 import org.spongepowered.api.entity.ai.task.AbstractAITask;
 import org.spongepowered.api.entity.living.Agent;
+import org.spongepowered.api.entity.living.Villager;
 import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.merchant.TradeOffer;
+import org.spongepowered.api.item.merchant.VillagerRegistry;
 import org.spongepowered.api.item.recipe.RecipeRegistry;
 import org.spongepowered.api.network.status.Favicon;
 import org.spongepowered.api.plugin.PluginContainer;
@@ -53,7 +56,6 @@ import org.spongepowered.api.text.translation.Translation;
 import org.spongepowered.api.util.ResettableBuilder;
 import org.spongepowered.api.util.rotation.Rotation;
 import org.spongepowered.api.world.extent.ExtentBufferFactory;
-import org.spongepowered.api.world.gen.WorldGeneratorModifier;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -170,6 +172,14 @@ public interface GameRegistry {
      *         is not supported
      */
     <T extends CatalogType> void register(Class<T> type, T obj) throws IllegalArgumentException, UnsupportedOperationException;
+
+    /**
+     * Gets the {@link VillagerRegistry} that manages {@link Villager} level
+     * upgrades and the {@link TradeOffer} generation.
+     *
+     * @return The villager registry
+     */
+    VillagerRegistry getVillagerRegistry();
 
     /**
      * Gets a {@link Collection} of the default GameRules.
