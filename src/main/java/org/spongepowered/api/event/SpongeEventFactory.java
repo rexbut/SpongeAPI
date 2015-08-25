@@ -35,6 +35,7 @@ import com.google.common.collect.Maps;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.GameProfile;
 import org.spongepowered.api.block.BlockSnapshot;
+import org.spongepowered.api.block.BlockTransaction;
 import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.block.tileentity.carrier.BrewingStand;
 import org.spongepowered.api.block.tileentity.carrier.Furnace;
@@ -437,8 +438,9 @@ public final class SpongeEventFactory {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
-        values.put("location", location);
-        values.put("block", location.getBlock());
+        values.put("targetLocation", location);
+        values.put("targetBlock", location.getBlock());
+        values.put("world", location.getExtent());
         return createEvent(WorldTickBlockEvent.class, values);
     }
 
@@ -532,13 +534,11 @@ public final class SpongeEventFactory {
      * @param replacementBlock The block that will replace the existing block
      * @return A new instance of the event
      */
-    public static WorldDecayBlockEvent createWorldDecayBlock(Game game, Cause cause, Location<World> location, BlockSnapshot replacementBlock) {
+    public static WorldDecayBlockEvent createWorldDecayBlock(Game game, Cause cause, ImmutableList<BlockTransaction> transactions) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
-        values.put("location", location);
-        values.put("block", location.getBlock());
-        values.put("replacementBlock", replacementBlock);
+        values.put("transactions", transactions);
         return createEvent(WorldDecayBlockEvent.class, values);
     }
 

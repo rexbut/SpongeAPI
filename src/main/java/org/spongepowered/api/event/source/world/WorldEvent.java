@@ -25,12 +25,13 @@
 package org.spongepowered.api.event.source.world;
 
 import org.spongepowered.api.event.GameEvent;
+import org.spongepowered.api.event.cause.CauseTracked;
 import org.spongepowered.api.world.World;
 
 /**
  * Base event for all events with a {@link World} as the source.
  */
-public interface WorldEvent extends GameEvent {
+public interface WorldEvent extends GameEvent, CauseTracked {
 
     /**
      * Gets the {@link World}.
