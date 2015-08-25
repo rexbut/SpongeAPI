@@ -47,6 +47,7 @@ import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityInteractionType;
 import org.spongepowered.api.entity.Tamer;
+import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.entity.living.Ageable;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.entity.player.gamemode.GameMode;
@@ -534,10 +535,11 @@ public final class SpongeEventFactory {
      * @param replacementBlock The block that will replace the existing block
      * @return A new instance of the event
      */
-    public static WorldDecayBlockEvent createWorldDecayBlock(Game game, Cause cause, ImmutableList<BlockTransaction> transactions) {
+    public static WorldDecayBlockEvent createWorldDecayBlock(Game game, Cause cause, World world, ImmutableList<BlockTransaction> transactions) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
+        values.put("world", world);
         values.put("transactions", transactions);
         return createEvent(WorldDecayBlockEvent.class, values);
     }
@@ -1376,14 +1378,13 @@ public final class SpongeEventFactory {
      * @param rotation The rotation the entity is facing
      * @return A new instance of the event
      */
-    public static MovePlayerEvent createPlayerMove(Game game, Player entity, Location<World> oldLocation, Location<World> newLocation, Vector3d rotation) {
+    public static MovePlayerEvent createPlayerMove(Game game, Player entity, Transform<World> oldTransform, Transform<World> newTransform, Transform<World> targetTransform) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
-        values.put("entity", entity);
-        values.put("user", entity);
-        values.put("oldLocation", oldLocation);
-        values.put("newLocation", newLocation);
-        values.put("rotation", rotation);
+        values.put("targetEntity", entity);
+        values.put("oldTransform", oldTransform);
+        values.put("newTransform", newTransform);
+        values.put("targetTransform", targetTransform);
         return createEvent(MovePlayerEvent.class, values);
     }
 
