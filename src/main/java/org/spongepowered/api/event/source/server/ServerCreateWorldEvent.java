@@ -22,31 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.event.target.world;
+package org.spongepowered.api.event.source.server;
 
-import org.spongepowered.api.event.GameEvent;
-import org.spongepowered.api.event.cause.CauseTracked;
-import org.spongepowered.api.world.WorldCreationSettings;
-import org.spongepowered.api.world.storage.WorldProperties;
+import org.spongepowered.api.Server;
+import org.spongepowered.api.event.target.world.CreateWorldEvent;
+import org.spongepowered.api.world.World;
 
 /**
- * An event for when a world has been created. Often paired with a
- * {@link LoadWorldEvent}, but that is not guaranteed.
+ * Called when a {@link Server} loads a {@link World} level.
  */
-public interface CreateWorldEvent extends GameEvent, CauseTracked {
+public interface ServerCreateWorldEvent extends CreateWorldEvent, ServerEvent {
 
-    /**
-     * Gets the properties of the newly created world.
-     * 
-     * @return The properties
-     */
-    WorldProperties getWorldProperties();
-    
-    /**
-     * Gets the {@link WorldCreationSettings} used to create the world.
-     * 
-     * @return The creation settings
-     */
-    WorldCreationSettings getWorldCreationSettings();
-    
 }

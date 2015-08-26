@@ -104,6 +104,9 @@ import org.spongepowered.api.event.source.network.GameClientConnectEvent;
 import org.spongepowered.api.event.source.plugin.PluginForceChunkEvent;
 import org.spongepowered.api.event.source.rcon.RconLoginEvent;
 import org.spongepowered.api.event.source.rcon.RconQuitEvent;
+import org.spongepowered.api.event.source.server.ServerCreateWorldEvent;
+import org.spongepowered.api.event.source.server.ServerLoadWorldEvent;
+import org.spongepowered.api.event.source.server.ServerUnloadWorldEvent;
 import org.spongepowered.api.event.source.world.WorldDecayBlockEvent;
 import org.spongepowered.api.event.source.world.WorldExplosionEvent;
 import org.spongepowered.api.event.source.world.WorldGrowBlockEvent;
@@ -1680,40 +1683,44 @@ public final class SpongeEventFactory {
      * @param settings The creation settings
      * @return A new instance of the event
      */
-    public static CreateWorldEvent createWorldCreate(Game game, WorldProperties properties, WorldCreationSettings settings) {
+    public static ServerCreateWorldEvent createServerCreateWorld(Game game, WorldProperties properties, WorldCreationSettings settings) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("worldProperties", properties);
         values.put("worldCreationSettings", settings);
-        return createEvent(CreateWorldEvent.class, values);
+        return createEvent(ServerCreateWorldEvent.class, values);
     }
 
     /**
-     * Creates a new {@link LoadWorldEvent}.
+     * Creates a new {@link ServerLoadWorldEvent}.
      *
+     * @param cause The cause
      * @param game The game instance for this {@link GameEvent}
      * @param world The world involved in this event
      * @return A new instance of the event
      */
-    public static LoadWorldEvent createWorldLoad(Game game, World world) {
+    public static ServerLoadWorldEvent createServerLoadWorld(Game game, World world) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
+        values.put("cause", Cause.of(game.getServer()));
         values.put("world", world);
-        return createEvent(LoadWorldEvent.class, values);
+        return createEvent(ServerLoadWorldEvent.class, values);
     }
 
     /**
-     * Creates a new {@link UnloadWorldEvent}.
+     * Creates a new {@link ServerUnloadWorldEvent}.
      *
+     * @param cause The cause
      * @param game The game instance for this {@link GameEvent}
      * @param world The world involved in this event
      * @return A new instance of the event
      */
-    public static UnloadWorldEvent createWorldUnload(Game game, World world) {
+    public static ServerUnloadWorldEvent createServerUnloadWorld(Game game, World world) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
+        values.put("cause", Cause.of(game.getServer()));
         values.put("world", world);
-        return createEvent(UnloadWorldEvent.class, values);
+        return createEvent(ServerUnloadWorldEvent.class, values);
     }
 
     /**
