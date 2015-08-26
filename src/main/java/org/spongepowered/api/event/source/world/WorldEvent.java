@@ -34,10 +34,10 @@ import org.spongepowered.api.world.World;
 public interface WorldEvent extends GameEvent, CauseTracked {
 
     /**
-     * Gets the {@link World}.
+     * Gets the source {@link World}.
      *
-     * @return The world
+     * @return The source world
      */
-    World getWorld();
+    World getSourceWorld();
 
 }

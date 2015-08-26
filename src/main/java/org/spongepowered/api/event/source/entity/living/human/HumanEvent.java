@@ -33,5 +33,5 @@ import org.spongepowered.api.event.source.entity.living.LivingEvent;
 public interface HumanEvent extends LivingEvent {
 
     @Override
-    Human getEntity();
+    Human getSourceEntity();
 }
