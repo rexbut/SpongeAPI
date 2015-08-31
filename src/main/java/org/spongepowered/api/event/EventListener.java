@@ -29,7 +29,7 @@ package org.spongepowered.api.event;
  *
  * @param <T> The type of the event
  */
-public interface EventHandler<T extends Event> {
+public interface EventListener<T extends Event> {
 
     /**
      * Called when a {@link Event} registered to this handler is called.

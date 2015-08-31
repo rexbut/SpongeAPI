@@ -39,7 +39,7 @@ public interface Event {
      *
      * @return The callbacklist
      */
-    @UnderlyingFields({})
+    @UnderlyingFields
     CallbackList getCallbacks();
 
 }

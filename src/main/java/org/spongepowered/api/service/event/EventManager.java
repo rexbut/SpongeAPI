@@ -25,9 +25,9 @@
 package org.spongepowered.api.service.event;
 
 import org.spongepowered.api.event.Event;
-import org.spongepowered.api.event.EventHandler;
+import org.spongepowered.api.event.EventListener;
+import org.spongepowered.api.event.Listen;
 import org.spongepowered.api.event.Order;
-import org.spongepowered.api.event.Subscribe;
 
 /**
  * Manages the registration of event handlers and the dispatching of events.
@@ -35,7 +35,7 @@ import org.spongepowered.api.event.Subscribe;
 public interface EventManager {
 
     /**
-     * Registers {@link Event} methods annotated with @{@link Subscribe} in the
+     * Registers {@link Event} methods annotated with @{@link Listen} in the
      * specified object.
      *
      * <p>Only methods that are public will be registered and the class must be
@@ -61,7 +61,7 @@ public interface EventManager {
      * @param handler The handler to receive the events
      * @param <T> The type of the event
      */
-    <T extends Event> void register(Object plugin, Class<T> eventClass, EventHandler<? super T> handler);
+    <T extends Event> void register(Object plugin, Class<T> eventClass, EventListener<? super T> handler);
 
     /**
      * Registers an event handler with the specified order for a specific event
@@ -78,7 +78,7 @@ public interface EventManager {
      * @param handler The handler to receive the events
      * @param <T> The type of the event
      */
-    <T extends Event> void register(Object plugin, Class<T> eventClass, Order order, EventHandler<? super T> handler);
+    <T extends Event> void register(Object plugin, Class<T> eventClass, Order order, EventListener<? super T> handler);
 
     /**
      * Registers an event handler with the specified order for a specific event
@@ -97,7 +97,7 @@ public interface EventManager {
      * @param <T> The type of the event
      */
     <T extends Event> void register(Object plugin, Class<T> eventClass, Order order, boolean beforeModifications,
-                                    EventHandler<? super T> handler);
+                                    EventListener<? super T> handler);
 
     /**
      * Un-registers an object from receiving {@link Event}s.
