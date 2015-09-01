@@ -28,6 +28,18 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Listen;
 import org.spongepowered.api.event.Order;
+import org.spongepowered.api.event.flow.CallbackFlow;
+import org.spongepowered.api.event.flow.EventFlow;
+import org.spongepowered.api.event.flow.Flow;
+import org.spongepowered.api.event.flow.ProxyFlow;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Manages the registration of event handlers and the dispatching of events.
@@ -120,5 +132,52 @@ public interface EventManager {
      * @return True if cancelled, false if not
      */
     boolean post(Event event);
+
+    default <E extends Event> EventFlow<E> flow(Object plugin, Class<E> eventClass) {
+        return new EventManagerEventFlow<>(this, plugin, eventClass, Order.DEFAULT, false);
+    }
+
+    class EventManagerEventFlow<E extends Event> extends ProxyFlow<E> implements EventFlow<E> {
+
+        private @Nullable CallbackFlow<E> builtFlow = null;
+
+        private final EventManager eventManager;
+        private final Object plugin;
+        private final Class<E> eventClass;
+        private final Order order;
+        private final boolean beforeModifications;
+
+        public EventManagerEventFlow(EventManager eventManager, Object plugin, Class<E> eventClass, Order order, boolean beforeModifications) {
+            this.eventManager = eventManager;
+            this.plugin = plugin;
+            this.eventClass = eventClass;
+            this.order = order;
+            this.beforeModifications = beforeModifications;
+        }
+
+
+        @Override
+        public EventFlow<E> order(Order order) {
+            return new EventManagerEventFlow<>(eventManager, plugin, eventClass, order, beforeModifications);
+        }
+
+        @Override
+        public EventFlow<E> beforeModifications(boolean beforeModifications) {
+            return new EventManagerEventFlow<>(eventManager, plugin, eventClass, order, this.beforeModifications);
+        }
+
+        @Override
+        public Flow<E> flow() {
+            if (builtFlow == null) {
+                builtFlow = new CallbackFlow<>();
+            }
+            return builtFlow;
+        }
+
+        @Override
+        protected Flow<E> proxy() {
+            return flow();
+        }
+    }
 
 }

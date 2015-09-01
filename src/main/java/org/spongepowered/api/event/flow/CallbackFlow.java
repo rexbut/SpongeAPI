@@ -78,7 +78,7 @@ public class CallbackFlow<A> implements Flow<A> {
 
     @Override
     public Optional<A> lastValue() {
-        return Optional.of(last);
+        return Optional.ofNullable(last);
     }
 
     @Override
