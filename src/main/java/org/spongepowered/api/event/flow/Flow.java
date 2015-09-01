@@ -6,9 +6,8 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public interface Flow<A> extends Iterable<A> {
+public interface Flow<A> {
 
-    @Override
     default void forEach(Consumer<? super A> action) {
         forEach(action, true);
     }
@@ -28,5 +27,9 @@ public interface Flow<A> extends Iterable<A> {
     <B extends A> Flow<A> merge(Flow<B> that);
 
     Optional<A> lastValue();
+
+    static <A> Flow<A> flatten(Flow<Flow<A>> flow) {
+        return flow.flatMap(Function.<Flow<A>>identity());
+    }
 
 }

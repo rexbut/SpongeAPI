@@ -1,7 +1,6 @@
 package org.spongepowered.api.event.flow;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executor;
@@ -31,6 +30,7 @@ public class CallbackFlow<A> implements Flow<A> {
     }
 
     public void push(A value) {
+        last = value;
         for (Consumer<? super A> consumer: consumers) {
             consumer.accept(value);
         }
@@ -41,7 +41,7 @@ public class CallbackFlow<A> implements Flow<A> {
         CallbackFlow<B> that = new CallbackFlow<>();
         that.push(initial);
         forEach(a -> {
-            B last = that.lastValue().get();
+            B last = that.last;
             that.push(folder.apply(last, a));
         });
         return that;
@@ -50,8 +50,25 @@ public class CallbackFlow<A> implements Flow<A> {
     @Override
     public Flow<A> reduce(BiFunction<A, A, A> reducer) {
         CallbackFlow<A> that = new CallbackFlow<>();
+        this.forEach(new Consumer<A>() {
 
-        return null;
+            private A first = last;
+
+            @Override
+            public void accept(A a) {
+                if (first == null) {
+                    first = a;
+                } else {
+                    if (that.last == null) {
+                        that.push(reducer.apply(first, a));
+                    } else {
+                        that.push(reducer.apply(last, a));
+                    }
+                }
+            }
+
+        });
+        return that;
     }
 
     @Override
@@ -79,11 +96,6 @@ public class CallbackFlow<A> implements Flow<A> {
     @Override
     public Optional<A> lastValue() {
         return Optional.ofNullable(last);
-    }
-
-    @Override
-    public Iterator<A> iterator() {
-        return null;
     }
 
 }

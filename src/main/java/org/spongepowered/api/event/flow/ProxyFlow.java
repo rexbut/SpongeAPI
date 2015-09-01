@@ -1,6 +1,5 @@
 package org.spongepowered.api.event.flow;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -49,11 +48,6 @@ public abstract class ProxyFlow<A> implements Flow<A> {
     @Override
     public Optional<A> lastValue() {
         return proxy().lastValue();
-    }
-
-    @Override
-    public Iterator<A> iterator() {
-        return proxy().iterator();
     }
 
 }
