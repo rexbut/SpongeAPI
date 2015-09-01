@@ -1,5 +1,7 @@
 package org.spongepowered.api.event.flow;
 
+import org.spongepowered.api.util.Tuple;
+
 import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -7,6 +9,21 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class ProxyFlow<A> implements Flow<A> {
+
+    @Override
+    public void forEach(Consumer<? super A> action) {
+
+    }
+
+    @Override
+    public Flow<A> drop(int number) {
+        return null;
+    }
+
+    @Override
+    public <B> Flow<Tuple<A, B>> zip(Flow<B> that) {
+        return null;
+    }
 
     protected abstract Flow<A> proxy();
 

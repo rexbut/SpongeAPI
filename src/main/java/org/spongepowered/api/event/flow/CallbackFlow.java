@@ -1,8 +1,9 @@
 package org.spongepowered.api.event.flow;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import org.spongepowered.api.util.Either;
+import org.spongepowered.api.util.Tuple;
+
+import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -49,26 +50,7 @@ public class CallbackFlow<A> implements Flow<A> {
 
     @Override
     public Flow<A> reduce(BiFunction<A, A, A> reducer) {
-        CallbackFlow<A> that = new CallbackFlow<>();
-        this.forEach(new Consumer<A>() {
-
-            private A first = last;
-
-            @Override
-            public void accept(A a) {
-                if (first == null) {
-                    first = a;
-                } else {
-                    if (that.last == null) {
-                        that.push(reducer.apply(first, a));
-                    } else {
-                        that.push(reducer.apply(last, a));
-                    }
-                }
-            }
-
-        });
-        return that;
+        this.zip(this.drop(1));
     }
 
     @Override
@@ -91,6 +73,55 @@ public class CallbackFlow<A> implements Flow<A> {
         forEach(merged::push);
         that.forEach(merged::push);
         return merged;
+    }
+
+    @Override
+    public Flow<A> drop(int number) {
+        CallbackFlow<A> that = new CallbackFlow<>();
+        forEach(new Consumer<A>() {
+
+            private int numberDropped;
+
+            @Override
+            public void accept(A a) {
+                if (numberDropped < number) {
+                    numberDropped++;
+                } else {
+                    that.push(a);
+                }
+            }
+        });
+        return that;
+    }
+
+    @Override
+    public <B> Flow<Either<A, B>> choose(Flow<B> that) {
+        CallbackFlow<Either<A, B>> chosen = new CallbackFlow<>();
+        forEach(a -> chosen.push(Either.left(a)));
+        that.forEach(b -> chosen.push(Either.right(b)));
+        return chosen;
+    }
+
+    @Override
+    public <B> Flow<Tuple<A, B>> zip(Flow<B> that) {
+        CallbackFlow<Tuple<A, B>> zipped = new CallbackFlow<>();
+        LinkedList<A> thisBuffer = new LinkedList<>();
+        LinkedList<B> thatBuffer = new LinkedList<>();
+        forEach(a -> {
+            if (thatBuffer.isEmpty()) {
+                thisBuffer.push(a);
+            } else {
+                zipped.push(new Tuple<>(a, thatBuffer.pop()));
+            }
+        });
+        that.forEach(b -> {
+            if (thisBuffer.isEmpty()) {
+                thatBuffer.push(b);
+            } else {
+                zipped.push(new Tuple<>(thisBuffer.pop(), b));
+            }
+        });
+        return zipped;
     }
 
     @Override

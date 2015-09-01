@@ -1,5 +1,8 @@
 package org.spongepowered.api.event.flow;
 
+import org.spongepowered.api.util.Either;
+import org.spongepowered.api.util.Tuple;
+
 import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -25,6 +28,12 @@ public interface Flow<A> {
     <B> Flow<B> flatMap(Function<A, Flow<B>> function);
 
     <B extends A> Flow<A> merge(Flow<B> that);
+
+    Flow<A> drop(int number);
+
+    <B> Flow<Either<A, B>> choose(Flow<B> that);
+
+    <B> Flow<Tuple<A, B>> zip(Flow<B> that);
 
     Optional<A> lastValue();
 
