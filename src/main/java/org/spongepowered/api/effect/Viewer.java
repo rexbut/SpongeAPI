@@ -29,6 +29,7 @@ import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.chat.ChatType;
+import org.spongepowered.api.text.sink.MessageSink;
 import org.spongepowered.api.text.title.Title;
 
 /**
@@ -92,21 +93,19 @@ public interface Viewer {
      */
     void playSound(SoundType sound, Vector3d position, double volume, double pitch, double minVolume);
 
-    /**
-     * Sends the message(s) with the specified {@link ChatType} on the client.
-     *
-     * @param type The chat type to send the messages to
-     * @param messages The message(s) to send
-     */
-    void sendMessage(ChatType type, Text... messages);
+    MessageSink chat();
+
+    MessageSink actionBar();
 
     /**
-     * Sends the message(s) with the specified {@link ChatType} on the client.
+     * Get the message sink that targets the system output.
      *
-     * @param type The chat type to send the messages to
-     * @param messages The message(s) to send
+     * System output goes to same position as the {@link #chat()} position, except messages sent to
+     * this position are still seen when chat is turned off on the Minecraft
+     * client.
+     * @return The system sink
      */
-    void sendMessage(ChatType type, Iterable<Text> messages);
+    MessageSink system();
 
     /**
      * Sends a {@link Title} to this player.

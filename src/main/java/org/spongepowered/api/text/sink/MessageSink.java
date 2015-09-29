@@ -25,39 +25,30 @@
 package org.spongepowered.api.text.sink;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.util.command.CommandSource;
 
 /**
  * Represents a function that takes a message and transforms it for distribution to the given targets.
  */
-public abstract class MessageSink {
+public interface MessageSink {
     /**
-     * Process a message using this sink, transforming and sending it to the appropriate recipients.
+     * Sends the formatted text message(s) to source when possible. If text formatting
+     * is not supported in the implementation it will be displayed as plain text.
      *
-     * @param text The text to send
+     * @param messages The message(s)
      */
-    public final void sendMessage(Text text) {
-        for (CommandSource recipient : getRecipients()) {
-            Text transformed = transformMessage(recipient, text);
-            recipient.sendMessage(transformed == null ? text : transformed);
-        }
-    }
+    void sendMessage(Text... messages);
 
     /**
-     * Handle transforming the input message appropriately.
+     * Sends the formatted text message(s) to source when possible. If text formatting
+     * is not supported in the implementation it will be displayed as plain text.
      *
-     * @param target The target to transform the message for
-     * @param text The message to send
-     * @return The transformed text. May be input.
+     * @param messages The messages
      */
-    public Text transformMessage(CommandSource target, Text text) {
-        return text;
-    }
+    void sendMessage(Iterable<Text> messages);
 
     /**
-     * Return all command sources that will receive messages sent through to this sink.
-     *
-     * @return An iterable of all possible receivers of messages
+     * TODO: Think about how to redirect output well
+     * @param other
      */
-    public abstract Iterable<CommandSource> getRecipients();
+    void redirectedThrough(MessageSink other);
 }
