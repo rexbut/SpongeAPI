@@ -25,16 +25,19 @@
 package org.spongepowered.api.status;
 
 import org.spongepowered.api.GameRegistry;
+import org.spongepowered.api.Sponge;
 
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 
 /**
  * Represents an icon for the server sent in the {@link StatusResponse}. It can
- * be loaded by calling one of the {@code loadFavicon} methods on {@link GameRegistry}
- * .
+ * be loaded by calling one of the {@code loadFavicon} methods on
+ * {@link GameRegistry}.
  *
  * @see GameRegistry#loadFavicon(String)
  * @see GameRegistry#loadFavicon(Path)
@@ -49,4 +52,62 @@ public interface Favicon {
      * @return The decoded image
      */
     BufferedImage getImage();
+
+    /**
+     * Loads a {@link Favicon} from the specified encoded string. The format of
+     * the input depends on the implementation.
+     *
+     * @param raw The encoded favicon
+     * @return The loaded favicon
+     * @throws IOException If the favicon couldn't be loaded
+     */
+    static Favicon load(String raw) throws IOException {
+        return Sponge.getRegistry().loadFavicon(raw);
+    }
+
+    /**
+     * Loads a favicon from a specified {@link Path}.
+     *
+     * @param path The path to the favicon
+     * @return The loaded favicon from the file
+     * @throws IOException If the favicon couldn't be loaded
+     * @throws FileNotFoundException If the file doesn't exist
+     */
+    static Favicon load(Path path) throws IOException {
+        return Sponge.getRegistry().loadFavicon(path);
+    }
+
+    /**
+     * Loads a favicon from a specified {@link URL}.
+     *
+     * @param url The favicon URL
+     * @return The loaded favicon from the URL
+     * @throws IOException If the favicon couldn't be loaded
+     */
+    static Favicon load(URL url) throws IOException {
+        return Sponge.getRegistry().loadFavicon(url);
+    }
+
+    /**
+     * Loads a favicon from a specified {@link InputStream}.
+     *
+     * @param in The favicon input stream
+     * @return The loaded favicon from the input stream
+     * @throws IOException If the favicon couldn't be loaded
+     */
+    static Favicon load(InputStream in) throws IOException {
+        return Sponge.getRegistry().loadFavicon(in);
+    }
+
+    /**
+     * Loads a favicon from a specified {@link BufferedImage}.
+     *
+     * @param image The favicon image
+     * @return The loaded favicon from the image
+     * @throws IOException If the favicon couldn't be loaded
+     */
+    static Favicon load(BufferedImage image) throws IOException {
+        return Sponge.getRegistry().loadFavicon(image);
+    }
+
 }
