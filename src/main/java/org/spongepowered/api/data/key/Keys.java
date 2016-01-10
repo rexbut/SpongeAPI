@@ -70,7 +70,7 @@ import java.util.UUID;
  * An enumeration of known {@link Key}s used throughout the API.
  */
 public final class Keys {
-    
+
     // SORTFIELDS:ON
 
     public static final Key<SetValue<Achievement>> ACHIEVEMENTS = null;
@@ -743,6 +743,8 @@ public final class Keys {
     public static final Key<ListValue<Text>> SIGN_LINES = null;
 
     public static final Key<Value<SkeletonType>> SKELETON_TYPE = null;
+
+    public static final Key<SetValue<SkinPart>> SKIN_PARTS = null;
 
     public static final Key<Value<UUID>> SKIN_UNIQUE_ID = null;
 

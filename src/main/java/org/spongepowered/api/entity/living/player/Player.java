@@ -79,13 +79,6 @@ public interface Player extends Humanoid, User, LocatedSource, RemoteSource, Vie
     boolean isChatColorsEnabled();
 
     /**
-     * Gets the skin parts that this player has allowed to render.
-     *
-     * @return A set of skin parts displayed
-     */
-    Set<SkinPart> getDisplayedSkinParts();
-
-    /**
      * Gets the appropriate {@link PlayerConnection} linking this Player
      * to a client.
      *
