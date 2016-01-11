@@ -89,7 +89,7 @@ public interface BiomeGenerationSettings {
      * @param type the generation populator type to return
      * @return The generation populators
      */
-    List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
+    <G extends GenerationPopulator> List<G> getGenerationPopulators(Class<G> type);
 
     /**
      * Returns a mutable list of {@link Populator}s specific to this biome.
@@ -104,9 +104,9 @@ public interface BiomeGenerationSettings {
      * which match the given class type.
      * 
      * @param type the populator type to return
-     * @param <T> The populator type
+     * @param <P> The populator type
      * @return The populators
      */
-    <T extends Populator> List<T> getPopulators(Class<T> type);
+    <P extends Populator> List<P> getPopulators(Class<P> type);
 
 }

@@ -113,7 +113,7 @@ public interface WorldGenerator {
      * @param type The type to match
      * @return The genpops which match the type
      */
-    List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
+    <G extends GenerationPopulator> List<G> getGenerationPopulators(Class<G> type);
 
     /**
      * Gets a mutable list of {@link Populator}s which are applied globally (in
@@ -131,7 +131,7 @@ public interface WorldGenerator {
      * @param type The type to match
      * @return The populators which match the type
      */
-    List<Populator> getPopulators(Class<? extends Populator> type);
+    <P extends Populator> List<P> getPopulators(Class<P> type);
 
     /**
      * Gets the {@link BiomeGenerator} for this world generator.
