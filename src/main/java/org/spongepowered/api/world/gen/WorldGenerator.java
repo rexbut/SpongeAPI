@@ -26,6 +26,7 @@ package org.spongepowered.api.world.gen;
 
 import org.spongepowered.api.world.biome.BiomeGenerationSettings;
 import org.spongepowered.api.world.biome.BiomeType;
+import org.spongepowered.api.world.gen.structure.Structure;
 
 import java.util.List;
 
@@ -114,6 +115,26 @@ public interface WorldGenerator {
      * @return The genpops which match the type
      */
     <G extends GenerationPopulator> List<G> getGenerationPopulators(Class<G> type);
+    
+    /**
+     * Gets a mutable list of {@link Structure}s. These structures are a special
+     * case of both populators and generation populators and are called for each
+     * of the two phases. They will be called after the
+     * {@link GenerationPopulator}s for the generation phase and before the
+     * {@link Populator}s for the population phase.
+     * 
+     * @return The structures
+     */
+    List<Structure> getStructures();
+    
+    /**
+     * Gets an immutable list of {@link Structure}s which match the given
+     * structure type.
+     * 
+     * @param type The type to match
+     * @return The structures which match the type
+     */
+    <S extends Structure> List<S> getStructures(Class<S> type);
 
     /**
      * Gets a mutable list of {@link Populator}s which are applied globally (in

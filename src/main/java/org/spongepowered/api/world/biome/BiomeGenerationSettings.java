@@ -26,6 +26,7 @@ package org.spongepowered.api.world.biome;
 
 import org.spongepowered.api.world.gen.GenerationPopulator;
 import org.spongepowered.api.world.gen.Populator;
+import org.spongepowered.api.world.gen.structure.Structure;
 
 import java.util.List;
 
@@ -90,6 +91,26 @@ public interface BiomeGenerationSettings {
      * @return The generation populators
      */
     <G extends GenerationPopulator> List<G> getGenerationPopulators(Class<G> type);
+    
+    /**
+     * Gets a mutable list of {@link Structure}s. These structures are a special
+     * case of both populators and generation populators and are called for each
+     * of the two phases. They will be called after the
+     * {@link GenerationPopulator}s for the generation phase and before the
+     * {@link Populator}s for the population phase.
+     * 
+     * @return The structures
+     */
+    List<Structure> getStructures();
+    
+    /**
+     * Gets an immutable list of {@link Structure}s which match the given
+     * structure type.
+     * 
+     * @param type The type to match
+     * @return The structures which match the type
+     */
+    <S extends Structure> List<S> getStructures(Class<S> type);
 
     /**
      * Returns a mutable list of {@link Populator}s specific to this biome.

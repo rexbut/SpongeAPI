@@ -24,16 +24,7 @@
  */
 package org.spongepowered.api.world.gen.structure;
 
-import org.spongepowered.api.world.biome.BiomeType;
 
-import java.util.List;
+public interface NetherFortress extends Structure {
 
-public interface Village extends Structure {
-
-    int getSize();
-    
-    void setSize(int size);
-    
-    List<BiomeType> getValidBiomes();
-    
 }
