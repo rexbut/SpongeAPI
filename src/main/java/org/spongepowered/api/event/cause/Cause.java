@@ -74,6 +74,28 @@ public final class Cause {
         return new Builder();
     }
 
+    public static Cause of(NamedCause cause) {
+        checkNotNull(cause, "Cause cannot be null!");
+        return new Cause(new NamedCause[]{cause});
+    }
+
+    public static Cause of(NamedCause cause, NamedCause... causes) {
+        Builder builder = builder();
+        builder.named(cause);
+        for (NamedCause namedCause : causes) {
+            builder.named(namedCause);
+        }
+        return builder.build();
+    }
+
+    public static Cause of(Iterable<NamedCause> iterable) {
+        Builder builder = builder();
+        for (NamedCause cause : iterable) {
+            builder.named(cause);
+        }
+        return builder.build();
+    }
+
     private final Object[] cause;
     private final String[] names;
 

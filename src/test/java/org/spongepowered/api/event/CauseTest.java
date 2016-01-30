@@ -50,12 +50,12 @@ public class CauseTest {
 
     @Test
     public void testPopulatedCause() {
-        Cause.of("foo");
+        Cause.builder().named("foo", "foo").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullCause() {
-        Cause.of((Object) null);
+        Cause.builder().named("null", null);
     }
 
     @Test
