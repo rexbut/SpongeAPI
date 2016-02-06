@@ -71,6 +71,10 @@ public final class Queries {
     public static final DataQuery COLOR_BLUE = of("Blue");
     public static final DataQuery COLOR_GREEN = of("Green");
 
+    // UUID
+    public static final DataQuery UUID_LEAST = of("UuidLeast");
+    public static final DataQuery UUID_MOST = of("UuidMost");
+
     private Queries() {
     }
 

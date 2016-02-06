@@ -39,6 +39,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.persistence.DataBuilder;
+import org.spongepowered.api.data.persistence.DataSerializer;
 import org.spongepowered.api.data.value.BaseValue;
 import org.spongepowered.api.util.Coerce;
 
@@ -823,6 +824,27 @@ public class MemoryDataView implements DataView {
             }
             return Optional.of(newList);
         }
+    }
+
+    @Override
+    public <T> Optional<T> getObject(DataQuery path, Class<T> objectClass) {
+        return getView(path)
+            .flatMap(view -> Sponge.getDataManager().getSerializer(objectClass)
+                .flatMap(serializer -> serializer.deserialize(view)));
+    }
+
+    @Override
+    public <T> Optional<List<T>> getObjectList(DataQuery path, Class<T> objectClass) {
+        return getViewList(path).flatMap(viewList -> {
+            Optional<DataSerializer<T>> serializerOptional = Sponge.getDataManager().getSerializer(objectClass);
+            return serializerOptional.flatMap(serializer -> {
+                List<T> objectList = new ArrayList<>();
+                for (DataView view : viewList) {
+                    serializer.deserialize(view).ifPresent(objectList::add);
+                }
+                return Optional.of(objectList);
+            });
+        });
     }
 
     @Override

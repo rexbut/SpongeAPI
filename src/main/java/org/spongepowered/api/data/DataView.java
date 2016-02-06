@@ -498,6 +498,10 @@ public interface DataView {
      */
     <T extends DataSerializable> Optional<List<T>> getSerializableList(DataQuery path, Class<T> clazz);
 
+    <T> Optional<T> getObject(DataQuery path, Class<T> objectClass);
+
+    <T> Optional<List<T>> getObjectList(DataQuery path, Class<T> objectclass);
+
     /**
      * Copies this {@link DataView} and all of it's contents into a new
      * {@link DataContainer}.

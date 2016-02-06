@@ -30,6 +30,7 @@ import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
 import org.spongepowered.api.data.manipulator.ImmutableDataManipulatorBuilder;
 import org.spongepowered.api.data.persistence.DataBuilder;
 import org.spongepowered.api.data.persistence.DataContentUpdater;
+import org.spongepowered.api.data.persistence.DataSerializer;
 
 import java.util.Optional;
 
@@ -185,5 +186,9 @@ public interface DataManager {
      */
     <T extends DataManipulator<T, I>, I extends ImmutableDataManipulator<I, T>>
         Optional<DataManipulatorBuilder<T, I>> getImmutableManipulatorBuilder(Class<I> immutableManipulatorClass);
+
+    <T> void registerSerializer(DataSerializer<T> serializer, Class<T> objectClass);
+
+    <T> Optional<DataSerializer<T>> getSerializer(Class<T> objectclass);
 
 }

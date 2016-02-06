@@ -29,7 +29,7 @@ import org.spongepowered.api.data.DataView;
 /**
  * An exception that occurs when a {@link DataBuilder} or
  * {@link DataSource} is unable to handle an operation, which can include:
- * {@link DataBuilder#build(DataView)}, {@link DataSource#deserialize()},
+ * {@link DataBuilder#build(DataView)}, {@link DataSource#()},
  * etc.
  */
 public class InvalidDataException extends UnsupportedOperationException {
