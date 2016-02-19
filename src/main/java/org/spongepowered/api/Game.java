@@ -24,18 +24,18 @@
  */
 package org.spongepowered.api;
 
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.config.ConfigManager;
+import org.spongepowered.api.data.DataManager;
 import org.spongepowered.api.data.DataSerializable;
 import org.spongepowered.api.data.property.PropertyRegistry;
 import org.spongepowered.api.data.property.PropertyStore;
+import org.spongepowered.api.event.EventManager;
 import org.spongepowered.api.network.ChannelRegistrar;
 import org.spongepowered.api.plugin.PluginManager;
-import org.spongepowered.api.service.ServiceManager;
-import org.spongepowered.api.command.CommandManager;
-import org.spongepowered.api.event.EventManager;
-import org.spongepowered.api.util.persistence.DataBuilder;
-import org.spongepowered.api.data.DataManager;
 import org.spongepowered.api.scheduler.Scheduler;
+import org.spongepowered.api.service.ServiceManager;
+import org.spongepowered.api.util.persistence.DataBuilder;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.TeleportHelper;
 import org.spongepowered.api.world.World;
@@ -56,11 +56,36 @@ public interface Game {
     Platform getPlatform();
 
     /**
-     * Gets the {@link Server}.
+     * Returns true if the {@link Server} is available for use. This is up to the implementation
+     * to define when and where this returns true.
+     *
+     * @return True if the server is present, false otherwise
+     */
+    boolean isServerAvailable();
+
+    /**
+     * Gets the {@link Server}. If invoked and {@link Game#isServerAvailable()} returns false, this will trigger
+     * an {@link IllegalStateException}.
      *
      * @return The server
      */
     Server getServer();
+
+    /**
+     * Returns true if the {@link Client} is available for use. This is up to the implementation
+     * to define when and where this returns true.
+     *
+     * @return True if the client is present, false otherwise
+     */
+    boolean isClientAvailable();
+
+    /**
+     * Gets the {@link Client}. If invoked and {@link Game#isClientAvailable()} returns false, this will trigger
+     * an {@link IllegalStateException}.
+     *
+     * @return The client
+     */
+    Client getClient();
 
     /**
      * Gets the {@link PluginManager}.
@@ -101,13 +126,6 @@ public interface Game {
     ServiceManager getServiceManager();
 
     /**
-     * Gets the scheduler used to schedule tasks.
-     *
-     * @return The scheduler
-     */
-    Scheduler getScheduler();
-
-    /**
      * Gets the {@link DataManager} instance to register
      * {@link DataSerializable}s, and get the related {@link DataBuilder}s.
      *
@@ -130,6 +148,12 @@ public interface Game {
      * @return The command dispatcher
      */
     CommandManager getCommandManager();
+
+    /**
+     * Gets the {@link Scheduler}.
+     * @return The scheduler
+     */
+    Scheduler getScheduler();
 
     /**
      * Gets the {@link TeleportHelper}, used to find safe {@link Location}s.

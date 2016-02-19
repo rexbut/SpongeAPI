@@ -55,10 +55,6 @@ public final class Sponge {
         return getGame().getEventManager();
     }
 
-    public static Scheduler getScheduler() {
-        return getGame().getScheduler();
-    }
-
     public static DataManager getDataManager() {
         return getGame().getDataManager();
     }
@@ -71,8 +67,16 @@ public final class Sponge {
         return getGame().getPlatform();
     }
 
+    public static Scheduler getScheduler() {
+        return getGame().getScheduler();
+    }
+
     public static Server getServer() {
         return getGame().getServer();
+    }
+
+    public static Client getClient() {
+        return getGame().getClient();
     }
 
     public static GameDictionary getDictionary() {

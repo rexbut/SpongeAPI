@@ -27,7 +27,9 @@ package org.spongepowered.api.item;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.Client;
 import org.spongepowered.api.GameDictionary;
+import org.spongepowered.api.Server;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.data.Property;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -36,6 +38,8 @@ import org.spongepowered.api.text.translation.Translatable;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
 import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * A type of item.
@@ -51,15 +55,23 @@ public interface ItemType extends CatalogType, Translatable, GameDictionary.Entr
     Optional<BlockType> getBlock();
 
     /**
-     * Gets the id of this item.
+     * Returns the {@link CreativeTab} that contains this item.
      *
-     * <p>Ex. Minecraft registers a golden carrot as
-     * "minecraft:golden_carrot".</p>
-     *
-     * @return The id
+     * @return The tab or {@link Optional#empty()} if it doesn't show in one
      */
-    @Override
-    String getName();
+    Optional<CreativeTab> getCreativeTab();
+
+    /**
+     * Sets the {@link CreativeTab} that will contain this item.
+     *
+     * Note: This has no real effect on the {@link Server}, do this on the
+     * {@link Client}. Passing a value of null will remove the tab from
+     * the type.
+     *
+     * @param tab The tab to set
+     * @return The type, for chaining
+     */
+    ItemType setCreativeTab(@Nullable CreativeTab tab);
 
     /**
      * Get the default maximum quantity for

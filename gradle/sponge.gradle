@@ -22,6 +22,10 @@ repositories {
         name = 'sponge'
         url = 'http://repo.spongepowered.org/maven'
     }
+    maven {
+        name = 'oss-sonatype'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 // Testing dependencies

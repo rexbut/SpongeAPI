@@ -25,15 +25,20 @@
 package org.spongepowered.api.block;
 
 import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.Client;
+import org.spongepowered.api.Server;
 import org.spongepowered.api.block.trait.BlockTrait;
 import org.spongepowered.api.data.DataHolder;
 import org.spongepowered.api.data.property.PropertyHolder;
+import org.spongepowered.api.item.CreativeTab;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.text.translation.Translatable;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
 import java.util.Collection;
 import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * Describes a base type of block.
@@ -69,6 +74,25 @@ public interface BlockType extends CatalogType, Translatable, PropertyHolder {
      * @return The item type or {@link Optional#empty()} otherwise
      */
     Optional<ItemType> getItem();
+
+    /**
+     * Returns the {@link CreativeTab} that contains this block.
+     *
+     * @return The tab or {@link Optional#empty()} if it doesn't show in one
+     */
+    Optional<CreativeTab> getCreativeTab();
+
+    /**
+     * Sets the {@link CreativeTab} that will contain this block.
+     *
+     * Note: This has no real effect on the {@link Server}, do this on the
+     * {@link Client}. Passing a value of null will remove the tab from
+     * the type.
+     *
+     * @param tab The tab to set
+     * @return The type, for chaining
+     */
+    BlockType setCreativeTab(@Nullable CreativeTab tab);
 
     /**
      * Gets if this BlockType is set to receive random block ticks.

@@ -46,7 +46,6 @@ public interface Task extends Identifiable {
         return Sponge.getRegistry().createBuilder(Builder.class);
     }
 
-
     /**
      * Gets the name of this task.
      *
