@@ -24,7 +24,6 @@
  */
 package org.spongepowered.api;
 
-import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.config.ConfigManager;
 import org.spongepowered.api.data.DataManager;
 import org.spongepowered.api.data.DataSerializable;
@@ -33,7 +32,6 @@ import org.spongepowered.api.data.property.PropertyStore;
 import org.spongepowered.api.event.EventManager;
 import org.spongepowered.api.network.ChannelRegistrar;
 import org.spongepowered.api.plugin.PluginManager;
-import org.spongepowered.api.scheduler.Scheduler;
 import org.spongepowered.api.service.ServiceManager;
 import org.spongepowered.api.util.persistence.DataBuilder;
 import org.spongepowered.api.world.Location;
@@ -64,9 +62,9 @@ public interface Game {
     boolean isServerAvailable();
 
     /**
-     * Gets the {@link Server}. If invoked and {@link Game#isServerAvailable()} returns false, this will trigger
-     * an {@link IllegalStateException}.
+     * Gets the {@link Server}.
      *
+     * @throws IllegalStateException If the server is not available at this time (determined by {@link Game#isServerAvailable()}).
      * @return The server
      */
     Server getServer();
@@ -80,9 +78,9 @@ public interface Game {
     boolean isClientAvailable();
 
     /**
-     * Gets the {@link Client}. If invoked and {@link Game#isClientAvailable()} returns false, this will trigger
-     * an {@link IllegalStateException}.
+     * Gets the {@link Client}.
      *
+     * @throws IllegalStateException If the client is not available at this time (determined by {@link Game#isClientAvailable()}).
      * @return The client
      */
     Client getClient();
@@ -142,21 +140,8 @@ public interface Game {
     PropertyRegistry getPropertyRegistry();
 
     /**
-     * Gets the command dispatcher used for registering and dispatching
-     * registered commands.
-     *
-     * @return The command dispatcher
-     */
-    CommandManager getCommandManager();
-
-    /**
-     * Gets the {@link Scheduler}.
-     * @return The scheduler
-     */
-    Scheduler getScheduler();
-
-    /**
      * Gets the {@link TeleportHelper}, used to find safe {@link Location}s.
+     *
      * @return The teleport helper
      */
     TeleportHelper getTeleportHelper();
@@ -171,6 +156,7 @@ public interface Game {
 
     /**
      * Gets the saves directory where {@link World} data currently resides.
+     *
      * @return The directory
      */
     Path getSavesDirectory();

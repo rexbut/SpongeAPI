@@ -45,7 +45,7 @@ public interface CreativeTab extends CatalogType, Translatable {
      * This will always return {@link Optional#empty()} if this
      * is on the {@link Server} or a mod provides a null type.
      *
-     * @return The ItemType
+     * @return The ItemType or {@link Optional#empty()} if unavailable
      */
     default Optional<ItemType> getTabItemType() {
         return Optional.empty();

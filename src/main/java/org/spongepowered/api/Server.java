@@ -26,11 +26,13 @@ package org.spongepowered.api;
 
 import com.flowpowered.math.vector.Vector3d;
 import com.google.common.util.concurrent.ListenableFuture;
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.command.source.ConsoleSource;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.profile.GameProfileManager;
 import org.spongepowered.api.resourcepack.ResourcePack;
+import org.spongepowered.api.scheduler.Scheduler;
 import org.spongepowered.api.scoreboard.Scoreboard;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.channel.MessageChannel;
@@ -49,6 +51,21 @@ import java.util.UUID;
  * Represents a typical Minecraft Server.
  */
 public interface Server {
+
+    /**
+     * Gets the command dispatcher used for registering and dispatching
+     * registered commands.
+     *
+     * @return The command dispatcher
+     */
+    CommandManager getCommandManager();
+
+    /**
+     * Gets the {@link Scheduler}.
+     *
+     * @return The scheduler
+     */
+    Scheduler getScheduler();
 
     /**
      * Gets the {@link Player}s currently online.

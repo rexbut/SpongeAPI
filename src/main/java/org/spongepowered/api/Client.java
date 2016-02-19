@@ -24,9 +24,18 @@
  */
 package org.spongepowered.api;
 
+import org.spongepowered.api.command.CommandManager;
+
 /**
  * Represents a typical Minecraft Client.
  */
 public interface Client {
 
+    /**
+     * Gets the command dispatcher used for registering and dispatching
+     * registered commands.
+     *
+     * @return The command dispatcher
+     */
+    CommandManager getCommandManager();
 }

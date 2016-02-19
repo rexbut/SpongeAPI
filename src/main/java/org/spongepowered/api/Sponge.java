@@ -26,12 +26,10 @@ package org.spongepowered.api;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.data.DataManager;
 import org.spongepowered.api.event.EventManager;
 import org.spongepowered.api.network.ChannelRegistrar;
 import org.spongepowered.api.plugin.PluginManager;
-import org.spongepowered.api.scheduler.Scheduler;
 import org.spongepowered.api.service.ServiceManager;
 
 public final class Sponge {
@@ -67,10 +65,6 @@ public final class Sponge {
         return getGame().getPlatform();
     }
 
-    public static Scheduler getScheduler() {
-        return getGame().getScheduler();
-    }
-
     public static Server getServer() {
         return getGame().getServer();
     }
@@ -81,10 +75,6 @@ public final class Sponge {
 
     public static GameDictionary getDictionary() {
         return getGame().getGameDictionary();
-    }
-
-    public static CommandManager getCommandManager() {
-        return getGame().getCommandManager();
     }
 
     public static ChannelRegistrar getChannelRegistrar() {
