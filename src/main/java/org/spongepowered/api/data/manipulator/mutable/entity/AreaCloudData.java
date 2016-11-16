@@ -22,10 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity;
+package org.spongepowered.api.data.manipulator.mutable.entity;
 
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.manipulator.mutable.entity.AreaCloudData;
+import org.spongepowered.api.data.manipulator.DataManipulator;
+import org.spongepowered.api.data.manipulator.immutable.entity.ImmutableAreaCloudData;
 import org.spongepowered.api.data.value.mutable.ListValue;
 import org.spongepowered.api.data.value.mutable.MutableBoundedValue;
 import org.spongepowered.api.data.value.mutable.Value;
@@ -33,53 +33,27 @@ import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.util.Color;
 
-public interface AreaEffectCloud extends Entity {
+public interface AreaCloudData extends DataManipulator<AreaCloudData, ImmutableAreaCloudData> {
 
-    default AreaCloudData getOcelotData() {
-        return get(AreaCloudData.class).get();
-    }
+	MutableBoundedValue<Integer> angerLevel();
 
-    default MutableBoundedValue<Integer> angerLevel() {
-        return getValue(Keys.AGE).get();
-    }
+    Value<Integer> duration();
 
-    default Value<Integer> duration() {
-        return getValue(Keys.AREA_CLOUD_DURATION).get();
-    }
+    Value<Integer> durationOnUse();
 
-    default Value<Integer> durationOnUse() {
-        return getValue(Keys.AREA_CLOUD_DURATION_ON_USE).get();
-    }
+    Value<ParticleType> particle();
 
-    default Value<ParticleType> particle() {
-        return getValue(Keys.AREA_CLOUD_PARTICLE).get();
-    }
+    Value<Float> radius();
 
-    default Value<Float> radius() {
-        return getValue(Keys.AREA_CLOUD_RADIUS).get();
-    }
+    Value<Float> radiusOnUse();
 
-    default Value<Float> radiusOnUse() {
-        return getValue(Keys.AREA_CLOUD_RADIUS_ON_USE).get();
-    }
+    Value<Float> radiusPerTick();
 
-    default Value<Float> radiusPerTick() {
-        return getValue(Keys.AREA_CLOUD_RADIUS_PER_TICK).get();
-    }
+    Value<Integer> reapplicationDelay();
 
-    default Value<Integer> reapplicationDelay() {
-        return getValue(Keys.AREA_CLOUD_REAPPLICATION_DELAY).get();
-    }
-    
-    default Value<Integer> waitTime() {
-        return getValue(Keys.AREA_CLOUD_WAIT_TIME).get();
-    }
+    Value<Integer> waitTime();
 
-    default Value<Color> color() {
-        return getValue(Keys.COLOR).get();
-    }
+    Value<Color> color();
 
-    default ListValue<PotionEffect> effects() {
-        return getValue(Keys.POTION_EFFECTS).get();
-    }
+    ListValue<PotionEffect> effects();
 }

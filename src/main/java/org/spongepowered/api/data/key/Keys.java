@@ -37,6 +37,7 @@ import org.spongepowered.api.data.meta.ItemEnchantment;
 import org.spongepowered.api.data.type.*;
 import org.spongepowered.api.data.value.immutable.ImmutableBoundedValue;
 import org.spongepowered.api.data.value.mutable.*;
+import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.effect.potion.PotionEffectType;
 import org.spongepowered.api.entity.Entity;
@@ -92,6 +93,22 @@ public final class Keys {
     public static final Key<MutableBoundedValue<Integer>> ANGER = KeyFactory.fake("ANGER");
 
     public static final Key<Value<Boolean>> ANGRY = KeyFactory.fake("ANGRY");
+
+    public static final Key<Value<Integer>> AREA_CLOUD_DURATION = KeyFactory.fake("AREA_CLOUD_DURATION");
+
+    public static final Key<Value<Integer>> AREA_CLOUD_DURATION_ON_USE = KeyFactory.fake("AREA_CLOUD_DURATION_ON_USE");
+
+    public static final Key<Value<ParticleType>> AREA_CLOUD_PARTICLE = KeyFactory.fake("AREA_CLOUD_PARTICLE");
+
+    public static final Key<Value<Float>> AREA_CLOUD_RADIUS = KeyFactory.fake("AREA_CLOUD_RADIUS");
+
+    public static final Key<Value<Float>> AREA_CLOUD_RADIUS_ON_USE = KeyFactory.fake("AREA_CLOUD_RADIUS_ON_USE");
+
+    public static final Key<Value<Float>> AREA_CLOUD_RADIUS_PER_TICK = KeyFactory.fake("AREA_CLOUD_RADIUS_PER_TICK");
+
+    public static final Key<Value<Integer>> AREA_CLOUD_REAPPLICATION_DELAY = KeyFactory.fake("AREA_CLOUD_REAPPLICATION_DELAY");
+
+    public static final Key<Value<Integer>> AREA_CLOUD_WAIT_TIME = KeyFactory.fake("AREA_CLOUD_WAIT_TIME");
 
     public static final Key<Value<Boolean>> ARMOR_STAND_HAS_ARMS = KeyFactory.fake("ARMOR_STAND_HAS_ARMS");
 
