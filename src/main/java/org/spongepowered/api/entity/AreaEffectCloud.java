@@ -27,7 +27,6 @@ package org.spongepowered.api.entity;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.mutable.entity.AreaCloudData;
 import org.spongepowered.api.data.value.mutable.ListValue;
-import org.spongepowered.api.data.value.mutable.MutableBoundedValue;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.potion.PotionEffect;
@@ -39,10 +38,6 @@ public interface AreaEffectCloud extends Entity {
         return get(AreaCloudData.class).get();
     }
 
-    default MutableBoundedValue<Integer> angerLevel() {
-        return getValue(Keys.AGE).get();
-    }
-
     default Value<Integer> duration() {
         return getValue(Keys.AREA_CLOUD_DURATION).get();
     }
@@ -52,7 +47,7 @@ public interface AreaEffectCloud extends Entity {
     }
 
     default Value<ParticleType> particle() {
-        return getValue(Keys.AREA_CLOUD_PARTICLE).get();
+        return getValue(Keys.AREA_CLOUD_PARTICLE_TYPE).get();
     }
 
     default Value<Float> radius() {
@@ -70,7 +65,7 @@ public interface AreaEffectCloud extends Entity {
     default Value<Integer> reapplicationDelay() {
         return getValue(Keys.AREA_CLOUD_REAPPLICATION_DELAY).get();
     }
-    
+
     default Value<Integer> waitTime() {
         return getValue(Keys.AREA_CLOUD_WAIT_TIME).get();
     }

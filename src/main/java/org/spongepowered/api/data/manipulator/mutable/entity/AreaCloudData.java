@@ -27,7 +27,6 @@ package org.spongepowered.api.data.manipulator.mutable.entity;
 import org.spongepowered.api.data.manipulator.DataManipulator;
 import org.spongepowered.api.data.manipulator.immutable.entity.ImmutableAreaCloudData;
 import org.spongepowered.api.data.value.mutable.ListValue;
-import org.spongepowered.api.data.value.mutable.MutableBoundedValue;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.potion.PotionEffect;
@@ -35,13 +34,11 @@ import org.spongepowered.api.util.Color;
 
 public interface AreaCloudData extends DataManipulator<AreaCloudData, ImmutableAreaCloudData> {
 
-	MutableBoundedValue<Integer> angerLevel();
-
     Value<Integer> duration();
 
     Value<Integer> durationOnUse();
 
-    Value<ParticleType> particle();
+    Value<ParticleType> particleType();
 
     Value<Float> radius();
 

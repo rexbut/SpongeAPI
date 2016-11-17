@@ -98,7 +98,7 @@ public final class Keys {
 
     public static final Key<Value<Integer>> AREA_CLOUD_DURATION_ON_USE = KeyFactory.fake("AREA_CLOUD_DURATION_ON_USE");
 
-    public static final Key<Value<ParticleType>> AREA_CLOUD_PARTICLE = KeyFactory.fake("AREA_CLOUD_PARTICLE");
+    public static final Key<Value<ParticleType>> AREA_CLOUD_PARTICLE_TYPE = KeyFactory.fake("AREA_CLOUD_PARTICLE");
 
     public static final Key<Value<Float>> AREA_CLOUD_RADIUS = KeyFactory.fake("AREA_CLOUD_RADIUS");
 
